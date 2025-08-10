@@ -1,0 +1,90 @@
+ADGM Corporate Agent — Document Reviewer
+
+Project Overview
+This project is implemented in Google Colab and serves as an AI-assisted Corporate Agent for reviewing and validating legal documentation within the Abu Dhabi Global Market (ADGM) framework.
+
+The system takes .docx legal files as input, verifies them against the ADGM compliance checklist, detects missing documents, and highlights red flag issues. It then produces:
+
+A structured JSON report summarizing the review.
+
+An annotated .docx file containing inline comments and compliance suggestions.
+
+The intent is to assist companies, law firms, or individuals in preparing correct documentation for incorporation and related ADGM processes.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+How It Works
+
+The solution in the .ipynb notebook is broken into clear, sequential steps:
+
+- Library Installation — All required Python packages are installed at the beginning to ensure the environment is ready to run on Colab without manual setup.
+
+- Reference Data Preparation — A simplified ADGM checklist and sample compliance rules are loaded (in real deployment, this would be linked to actual ADGM official sources).
+
+- Document Parsing — .docx files are read, and their content is split into manageable text chunks for analysis.
+
+- Process Identification — The system automatically determines the type of process (e.g., Company Incorporation) based on the document set.
+
+- Checklist Verification — Uploaded files are compared against the list of required documents; missing files are flagged.
+
+- Red Flag Detection — The text is scanned for issues such as:
+
+- Wrong jurisdiction (e.g., “UAE Federal Courts” instead of ADGM Courts).
+
+    Ambiguous or non-binding clauses.
+
+    Missing signatories or witness sections.
+
+    Incorrect formatting or non-compliance with ADGM templates.
+
+- Output Generation — The results are compiled into:
+
+     A downloadable .docx with inline comments.
+
+    A JSON report listing findings, severity, and recommendations.
+
+- Interactive UI — A Gradio interface is provided for easy testing and demonstration.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Test Cases
+
+The notebook contains built-in test case generators. These create sample documents with intentional compliance issues for demonstration: (Used test cases for speed)
+
+- Articles of Association — Contains wrong jurisdiction, missing minority shareholder rights, and vague clauses.
+
+- Memorandum of Association — Contains non-binding terms and missing signature details.
+
+- Running the Test Case option in Gradio will:
+
+    Generate these files in memory.
+
+    Run them through the same review process.
+
+    Output both the JSON report and annotated .docx files for download.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Running the Project
+1) Open the .ipynb notebook in Google Colab.
+
+2) Execute all cells from top to bottom.
+
+3) When the Gradio interface launches, click “Run Built-in Test Case”.
+
+4) View the JSON report on the left and download reviewed .docx files from the links on the right.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Deliverables
+
+The project produces:
+
+- JSON Report — Summary of compliance checks, missing documents, and issues.
+
+- Annotated .docx — Inline comments referencing ADGM compliance rules.
+
+Self-contained Demo — No paid APIs, works entirely in Colab with preloaded test data.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Sample Outputs
+For reference, annotated .docx files from the test cases can be found as part of this repo.
+These show the inline comments and changes the system suggests based on ADGM compliance rules.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Tech Stack: Python (Google Colab), Gradio (UI), python-docx (Word file parsing), sentence-transformers with all-MiniLM-L6-v2 (embeddings & semantic checks), 
+google/flan-t5-small (clause analysis & suggestions), FAISS (vector search), tqdm (progress bars), requests (downloading references).
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
